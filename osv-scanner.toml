@@ -1,0 +1,11 @@
+[[IgnoredVulns]]
+id = "GHSA-gcqx-w48m-w2h4"
+reason = "Dev dependency only (not shipped in dist); no fix available"
+
+[[IgnoredVulns]]
+id = "GHSA-3g3m-2fjr-6pw4"
+reason = "Dev dependency only (not shipped in dist); fix blocked by upstream packages"
+
+[[IgnoredVulns]]
+id = "GHSA-g3hv-75wg-m249"
+reason = "Dev dependency only (not shipped in dist); fix blocked by upstream packages"
