@@ -49,7 +49,7 @@ jobs:
 
       - name: Lint Code Base
         id: super-linter
-        uses: step-security/super-linter@v8
+        uses: step-security/super-linter@v9
         env:
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
