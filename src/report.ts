@@ -1,23 +1,14 @@
-import { debug } from '@actions/core'
-import type {
+import {
 	JSONReport,
 	JSONReportSpec,
 	JSONReportSuite,
 	JSONReportTest,
 	JSONReportTestResult
 } from '@playwright/test/reporter'
+import { debug } from '@actions/core'
 
-import {
-	escapeForMarkdown,
-	formatDuration,
-	n,
-	renderAccordion,
-	renderCodeBlock,
-	sanitizeTestFilePath,
-	sanitizeTestTitle,
-	upperCaseFirst
-} from './formatting'
-import { type icons, renderIcon } from './icons'
+import { escapeForMarkdown, formatDuration, n, renderAccordion, renderCodeBlock, upperCaseFirst } from './formatting'
+import { icons, renderIcon } from './icons'
 
 export interface ReportSummary {
 	version: string
@@ -91,9 +82,6 @@ interface ReportRenderOptions {
 	testCommand?: string
 	footer?: string
 }
-
-// Cap on tests rendered per section to prevent comment flooding on catastrophic-failure runs
-export const MAX_TESTS_PER_SECTION = 100
 
 export function isValidReport(report: unknown): report is JSONReport {
 	return report !== null && typeof report === 'object' && 'config' in report && 'errors' in report && 'suites' in report
@@ -288,20 +276,12 @@ export function renderReportSummary(
 }
 
 function renderTestList(tests: TestSummary[], testCommand: string | undefined): string {
-	const shown = tests.slice(0, MAX_TESTS_PER_SECTION)
-	const overflow = tests.length - shown.length
-
-	const lines = shown.map((test) => `  ${escapeForMarkdown(sanitizeTestTitle(test.title))}`)
-	if (overflow > 0) {
-		lines.push(`  … and ${overflow} more`)
-	}
-	const list = lines.join('\n')
-
+	const list = tests.map((test) => `  ${escapeForMarkdown(test.title)}`).join('\n')
 	if (!testCommand) {
 		return list
 	}
 
-	const testIds = shown.map((test) => `${sanitizeTestFilePath(test.file)}:${test.line}`).join(' ')
+	const testIds = tests.map((test) => `${test.file}:${test.line}`).join(' ')
 	const command = `${testCommand} ${testIds}`
 
 	return `${list}\n\n${renderCodeBlock(command)}`

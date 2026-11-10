@@ -20,9 +20,6 @@ on:
       - '**.md'
   workflow_dispatch:
 
-permissions:
-  contents: read
-
 jobs:
   check-dist:
     name: Check dist/
@@ -33,21 +30,14 @@ jobs:
       statuses: write
 
     steps:
-      - name: Harden the runner (Audit all outbound calls)
-        uses: step-security/harden-runner@v2
-        with:
-          egress-policy: audit
-
       - name: Checkout
         id: checkout
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          persist-credentials: false
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        uses: actions/setup-node@v6
         with:
-          node-version: 24
+          node-version: 18
           cache: npm
 
       - name: Install Dependencies
@@ -66,3 +56,11 @@ jobs:
             git diff --ignore-space-at-eol --text dist/
             exit 1
           fi
+
+      # If index.js was different than expected, upload the expected version as
+      # a workflow artifact.
+      - uses: actions/upload-artifact@v7
+        if: ${{ failure() && steps.diff.conclusion == 'failure' }}
+        with:
+          name: dist
+          path: dist/

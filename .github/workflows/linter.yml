@@ -8,9 +8,6 @@ on:
     branches-ignore:
       - main
 
-permissions:
-  contents: read
-
 jobs:
   lint:
     name: Lint Code Base
@@ -20,27 +17,17 @@ jobs:
       contents: read
       packages: read
       statuses: write
-      issues: write
-      pull-requests: write
 
     steps:
-      - name: Harden the runner (Audit all outbound calls)
-        uses: step-security/harden-runner@v2
-        with:
-          egress-policy: audit
-
       - name: Checkout
         id: checkout
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          fetch-depth: 0
-          persist-credentials: false
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
         id: setup-node
-        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        uses: actions/setup-node@v6
         with:
-          node-version: 24
+          node-version: 18
           cache: npm
 
       - name: Install Dependencies
@@ -49,21 +36,11 @@ jobs:
 
       - name: Lint Code Base
         id: super-linter
-        uses: step-security/super-linter@v8
+        uses: super-linter/super-linter/slim@v5
         env:
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          FILTER_REGEX_EXCLUDE: ^dist/
-          VALIDATE_BIOME_FORMAT: false
-          VALIDATE_BIOME_LINT: false
-          VALIDATE_CHECKOV: false
-          VALIDATE_JAVASCRIPT_ES: false
-          VALIDATE_JAVASCRIPT_PRETTIER: false
-          VALIDATE_JAVASCRIPT_STANDARD: false
+          TYPESCRIPT_DEFAULT_STYLE: prettier
           VALIDATE_JSCPD: false
           VALIDATE_MARKDOWN: false
           VALIDATE_NATURAL_LANGUAGE: false
-          VALIDATE_SPELL_CODESPELL: false
-          VALIDATE_TYPESCRIPT_ES: false
-          VALIDATE_TYPESCRIPT_PRETTIER: false
-          VALIDATE_TYPESCRIPT_STANDARD: false

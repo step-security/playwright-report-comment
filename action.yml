@@ -1,6 +1,6 @@
 name: 'Playwright report comment'
 description: 'Report Playwright test results as pull request comments'
-author: 'step-security'
+author: 'Philipp Daun <daun@daun.ltd>'
 
 branding:
   icon: 'message-circle'
@@ -21,8 +21,7 @@ inputs:
     description: 'URL to the generated html report, if uploaded'
     required: false
   pr-number:
-    description:
-      'The pull request number to comment on. Only required if the action is run outside a pull request context.'
+    description: 'The pull request number to comment on. Only required if the action is run outside a pull request context.'
     required: false
   create-comment:
     description: 'Create a pull request comment with the test result summary'
@@ -63,5 +62,5 @@ outputs:
     description: 'The raw data of the test report'
 
 runs:
-  using: node24
+  using: node20
   main: dist/index.js
