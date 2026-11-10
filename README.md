@@ -36,7 +36,7 @@ jobs:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
         with:
-          node-version: 20
+          node-version: 24
 
       - run: PLAYWRIGHT_JSON_OUTPUT_NAME=results.json npx playwright test --reporter=json
 
@@ -54,7 +54,7 @@ any other action in combination with the `summary` output of this action.
 
 A few recommended actions are
 [Sticky Pull Request Comment](https://github.com/step-security/sticky-pull-request-comment)
-and [Create or Update Comment](https://github.com/marketplace/actions/create-or-update-comment).
+and [Create or Update Comment](https://github.com/step-security/create-or-update-comment).
 
 ```diff
   - uses: step-security/playwright-report-comment@v3
