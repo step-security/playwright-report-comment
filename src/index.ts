@@ -21,12 +21,14 @@ import {
 	createPullRequestReview,
 	getPullRequestInfo
 } from './github'
+import { validateSubscription } from './subscription'
 
 /**
  * The main function for the action.
  */
 export async function run(): Promise<void> {
 	try {
+		await validateSubscription()
 		await report()
 	} catch (error) {
 		if (error instanceof Error) {

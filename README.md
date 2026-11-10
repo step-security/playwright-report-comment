@@ -33,14 +33,14 @@ jobs:
     name: Run playwright tests
     needs: install
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: 20
 
       - run: PLAYWRIGHT_JSON_OUTPUT_NAME=results.json npx playwright test --reporter=json
 
-      - uses: daun/playwright-report-summary@v3
+      - uses: step-security/playwright-report-comment@v3
         if: always()
         with:
           report-file: results.json
@@ -53,18 +53,18 @@ require custom logic for creating and updating comments, you can disable the def
 any other action in combination with the `summary` output of this action.
 
 A few recommended actions are
-[Sticky Pull Request Comment](https://github.com/marketplace/actions/sticky-pull-request-comment)
+[Sticky Pull Request Comment](https://github.com/step-security/sticky-pull-request-comment)
 and [Create or Update Comment](https://github.com/marketplace/actions/create-or-update-comment).
 
 ```diff
-  - uses: daun/playwright-report-summary@v3
+  - uses: step-security/playwright-report-comment@v3
     if: always()
     id: summary
     with:
       report-file: results.json
 +     create-comment: false
 
-+ - uses: marocchino/sticky-pull-request-comment@v2
++ - uses: step-security/sticky-pull-request-comment@v3
 +   with:
 +     message: ${{ steps.summary.outputs.summary }}
 ```
@@ -72,7 +72,7 @@ and [Create or Update Comment](https://github.com/marketplace/actions/create-or-
 ## Options
 
 ```yaml
-- uses: daun/playwright-report-summary@v3
+- uses: step-security/playwright-report-comment@v3
   if: always()
   with:
     # The GitHub access token to use for API requests
@@ -147,7 +147,7 @@ The ID of the comment that was created or updated
 
 The raw data of the test report, as a JSON-encoded string. This is
 useful for creating custom summaries or debugging. You can get an idea
-of the data structure by checking out the [ReportSummary interface](https://github.com/daun/playwright-report-summary/blob/main/src/report.ts#L13).
+of the data structure by checking out the [ReportSummary interface](https://github.com/step-security/playwright-report-comment/blob/main/src/report.ts#L13).
 
 ## License
 

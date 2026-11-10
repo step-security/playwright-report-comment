@@ -1,6 +1,6 @@
 name: 'Playwright report comment'
 description: 'Report Playwright test results as pull request comments'
-author: 'Philipp Daun <daun@daun.ltd>'
+author: 'step-security'
 
 branding:
   icon: 'message-circle'
@@ -62,5 +62,5 @@ outputs:
     description: 'The raw data of the test report'
 
 runs:
-  using: node20
+  using: node24
   main: dist/index.js
