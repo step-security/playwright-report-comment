@@ -10,7 +10,7 @@ on:
       base_branch:
         description: 'Specify a base branch'
         required: false
-        default: 'main'
+        default: 'v3.11.0-main'
       node_version:
         description: 'Node.js version to use'
         required: false

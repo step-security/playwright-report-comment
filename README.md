@@ -2,8 +2,8 @@
 
 # ![report](https://icongr.am/octicons/comment-discussion.svg?size=22&color=abb4bf)   Playwright Report Summary
 
-[![GitHub Super-Linter](https://github.com/actions/typescript-action/actions/workflows/linter.yml/badge.svg)](https://github.com/super-linter/super-linter)
-![CI](https://github.com/actions/typescript-action/actions/workflows/ci.yml/badge.svg)
+[![GitHub Super-Linter](https://github.com/step-security/playwright-report-comment/actions/workflows/linter.yml/badge.svg)](https://github.com/step-security/playwright-report-comment/actions/workflows/linter.yml)
+[![CI](https://github.com/step-security/playwright-report-comment/actions/workflows/ci.yml/badge.svg)](https://github.com/step-security/playwright-report-comment/actions/workflows/ci.yml)
 
 A GitHub action to report Playwright test results as a pull request comment.
 
