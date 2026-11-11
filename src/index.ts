@@ -1,4 +1,4 @@
-import path from 'path'
+import path from 'node:path'
 import {
 	getInput,
 	getBooleanInput,
@@ -11,7 +11,6 @@ import {
 	summary as setSummary
 } from '@actions/core'
 import { context, getOctokit } from '@actions/github'
-
 import { fileExists, readFile } from './fs'
 import { parseListInput } from './actions'
 import { parseReport, renderReportSummary, getCommitUrl } from './report'
@@ -28,8 +27,8 @@ import { validateSubscription } from './subscription'
  * The main function for the action.
  */
 export async function run(): Promise<void> {
-	await validateSubscription()
 	try {
+		await validateSubscription()
 		await report()
 	} catch (error) {
 		if (error instanceof Error) {
@@ -118,13 +117,6 @@ export async function report(): Promise<void> {
 
 		case 'workflow_dispatch':
 			console.log(`Workflow dispatched on ${ref} (${sha})`)
-			break
-
-		case 'deployment_status':
-			ref = payload.deployment?.ref || ref
-			sha = payload.deployment?.sha || sha
-			commitUrl = getCommitUrl(payload.repository?.html_url, sha)
-			console.log(`Deployment status on ${ref} (${sha})`)
 			break
 
 		default:
@@ -220,13 +212,12 @@ export async function report(): Promise<void> {
 		setSummary.addRaw(summary).write()
 	}
 
-	// Untrusted content: never interpolate directly into `run:` scripts.
-	// See README "Security: using outputs safely".
 	setOutput('summary', summary)
 	setOutput('comment-id', commentId)
 	setOutput('report-data', JSON.stringify(report))
 }
 
 if (process.env.GITHUB_ACTIONS === 'true') {
+	// eslint-disable-next-line @typescript-eslint/no-floating-promises
 	run()
 }

@@ -1,6 +1,3 @@
-# Compiled output of rollup.config.ts (emitted by --configPlugin at build time)
-rollup.config.js
-
 # Dependency directory
 node_modules
 

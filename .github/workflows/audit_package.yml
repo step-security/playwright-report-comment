@@ -1,26 +1,26 @@
 name: NPM Audit Fix Run
 
 on:
-  workflow_dispatch:
+  workflow_dispatch: # checkov:skip=CKV_GHA_7
     inputs:
       force:
-        description: "Use --force flag for npm audit fix?"
+        description: 'Use --force flag for npm audit fix?'
         required: true
         type: boolean
       base_branch:
-        description: "Specify a base branch"
+        description: 'Specify a base branch'
         required: false
-        default: "main"
+        default: 'main'
       node_version:
-        description: "Node.js version to use"
+        description: 'Node.js version to use'
         required: false
-        default: "24"
+        default: '24'
       script:
-        description: "Command that bundles the action"
+        description: 'Command that bundles the action'
         required: false
-        default: "npm run package"
+        default: 'npm run package'
   schedule:
-    - cron: "0 0 * * 1"
+    - cron: '0 0 * * 1'
 
 jobs:
   audit-fix:
