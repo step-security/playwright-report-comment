@@ -37325,7 +37325,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.fileExists = fileExists;
 exports.readFile = readFile;
-const promises_1 = __importDefault(__nccwpck_require__(1943));
+const promises_1 = __importDefault(__nccwpck_require__(1455));
 async function fileExists(filename) {
     try {
         await promises_1.default.access(filename, promises_1.default.constants.F_OK);
@@ -37454,7 +37454,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.run = run;
 exports.report = report;
-const path_1 = __importDefault(__nccwpck_require__(6928));
+const node_path_1 = __importDefault(__nccwpck_require__(6760));
 const core_1 = __nccwpck_require__(7484);
 const github_1 = __nccwpck_require__(3228);
 const fs_1 = __nccwpck_require__(4772);
@@ -37548,7 +37548,7 @@ async function report() {
             console.warn(`Unsupported event type: ${eventName}`);
             break;
     }
-    const reportPath = path_1.default.resolve(cwd, reportFile);
+    const reportPath = node_path_1.default.resolve(cwd, reportFile);
     const reportExists = await (0, fs_1.fileExists)(reportPath);
     if (!reportExists) {
         (0, core_1.debug)(`Failed to find report file at path ${reportPath}`);
@@ -37882,12 +37882,12 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.validateSubscription = validateSubscription;
 const axios_1 = __importStar(__nccwpck_require__(7269));
 const core = __importStar(__nccwpck_require__(7484));
-const fs_1 = __importDefault(__nccwpck_require__(9896));
+const node_fs_1 = __importDefault(__nccwpck_require__(3024));
 async function validateSubscription() {
     const eventPath = process.env.GITHUB_EVENT_PATH;
     let repoPrivate;
-    if (eventPath && fs_1.default.existsSync(eventPath)) {
-        const eventData = JSON.parse(fs_1.default.readFileSync(eventPath, 'utf8'));
+    if (eventPath && node_fs_1.default.existsSync(eventPath)) {
+        const eventData = JSON.parse(node_fs_1.default.readFileSync(eventPath, 'utf8'));
         repoPrivate = eventData?.repository?.private;
     }
     const upstream = 'daun/playwright-report-summary';
@@ -37959,14 +37959,6 @@ module.exports = require("events");
 
 "use strict";
 module.exports = require("fs");
-
-/***/ }),
-
-/***/ 1943:
-/***/ ((module) => {
-
-"use strict";
-module.exports = require("fs/promises");
 
 /***/ }),
 
@@ -38066,6 +38058,22 @@ module.exports = require("node:events");
 
 /***/ }),
 
+/***/ 3024:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("node:fs");
+
+/***/ }),
+
+/***/ 1455:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("node:fs/promises");
+
+/***/ }),
+
 /***/ 7067:
 /***/ ((module) => {
 
@@ -38087,6 +38095,14 @@ module.exports = require("node:http2");
 
 "use strict";
 module.exports = require("node:net");
+
+/***/ }),
+
+/***/ 6760:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("node:path");
 
 /***/ }),
 

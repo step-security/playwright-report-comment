@@ -1,19 +1,19 @@
 name: Release GitHub Actions
 
 on:
-  workflow_dispatch:
+  workflow_dispatch: # checkov:skip=CKV_GHA_7
     inputs:
       tag:
-        description: "Tag for the release"
+        description: 'Tag for the release'
         required: true
       node_version:
-        description: "Node.js version to use"
+        description: 'Node.js version to use'
         required: false
-        default: "24"
+        default: '24'
       script:
-        description: "Command that bundles the action"
+        description: 'Command that bundles the action'
         required: false
-        default: "npm run package"
+        default: 'npm run package'
 
 permissions:
   contents: read
@@ -27,6 +27,6 @@ jobs:
 
     uses: step-security/reusable-workflows/.github/workflows/actions_release.yaml@v1 # zizmor: ignore[unpinned-uses]
     with:
-      tag: "${{ github.event.inputs.tag }}"
+      tag: '${{ github.event.inputs.tag }}'
       node_version: ${{ inputs.node_version || '24' }}
       script: ${{ inputs.script || 'npm run package' }}

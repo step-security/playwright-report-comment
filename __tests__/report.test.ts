@@ -5,7 +5,7 @@
 import { expect } from '@jest/globals'
 import { readFile } from '../src/fs'
 import {
-	ReportSummary,
+	type ReportSummary,
 	buildTitle,
 	isValidReport,
 	parseReport,

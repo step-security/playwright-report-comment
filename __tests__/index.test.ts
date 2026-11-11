@@ -6,7 +6,7 @@
  * variables following the pattern `INPUT_<INPUT_NAME>`.
  */
 
-import { Context } from '@actions/github/lib/context'
+import type { Context } from '@actions/github/lib/context'
 import * as actionsCore from '@actions/core'
 import * as actionsGitHub from '@actions/github'
 

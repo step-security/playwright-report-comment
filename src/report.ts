@@ -1,4 +1,4 @@
-import {
+import type {
 	JSONReport,
 	JSONReportSpec,
 	JSONReportSuite,
@@ -8,7 +8,7 @@ import {
 import { debug } from '@actions/core'
 
 import { escapeForMarkdown, formatDuration, n, renderAccordion, renderCodeBlock, upperCaseFirst } from './formatting'
-import { icons, renderIcon } from './icons'
+import { type icons, renderIcon } from './icons'
 
 export interface ReportSummary {
 	version: string

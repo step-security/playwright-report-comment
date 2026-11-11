@@ -1,4 +1,4 @@
-import { ReportSummary, renderReportSummary } from '../src/report'
+import { type ReportSummary, renderReportSummary } from '../src/report'
 
 describe('renderReportSummary security', () => {
 	it('sanitizes test titles containing HTML and markdown injection', () => {
